@@ -1,5 +1,6 @@
 """
-Главный скрипт
+Выполнил Прокофьев А.А.
+Фт-210008
 """
 
 from utils import get_coord, check_color, wrap_input

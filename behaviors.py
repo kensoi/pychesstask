@@ -1,6 +1,8 @@
 """
-Скрипт с поведениями фигур
+Выполнил Прокофьев А.А.
+Фт-210008
 """
+
 from utils import check_danger, check_color, check_coord, knight_danger, bishop_danger
 from chess import KNIGHTS_MOVES, BISHOP_MOVES
 
