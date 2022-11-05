@@ -73,8 +73,8 @@ def castle(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     else:
         print("в) Можно в 2 хода: ")
         print("[1] {k}:{l}-{m}:{l}\n[2] {m}:{l}-{m}:{n}".format(
-            k=first_x+1, l=first_y+1,
-            m=second_x+1, n=second_y+1))
+            k=first_x, l=first_y,
+            m=second_x, n=second_y))
 
 
 def knight(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
@@ -131,5 +131,5 @@ def queen(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     else:
         print("в) Можно в 2 хода: ")
         print("[1] {k}:{l}-{m}:{l}\n[2] {m}:{l}-{m}:{n}".format(
-            k=first_x+1, l=first_y+1,
-            m=second_x+1, n=second_y+1))
+            k=first_x, l=first_y,
+            m=second_x, n=second_y))
