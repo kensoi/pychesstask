@@ -4,6 +4,7 @@
 """
 
 from chess import COORD_MIN, COORD_MAX, ChessFigure
+from logger import logger, LogLevel
 
 
 def wrap_input(text_to_print:str) -> str:
@@ -28,17 +29,19 @@ def get_coord(text_to_print:str) -> int:
     """
 
     while True:
+        logger.log(LogLevel.INFO.value, "Попытка взять координату")
+
         try:
             coord = int(wrap_input(text_to_print))
+            if check_coord(coord): # координата выходит за пределы ОДЗ
+                logger.log(LogLevel.INFO.value, "Попытка успешна")
+                return coord
+            print("Число выходит за пределы допустимых выражений!")
 
         except ValueError as value_error: # ошибка перевода в int
+            logger.log(LogLevel.DEBUG, "Попытка закончилась ошибкой")
             print(f"Введите число! (Ошибка: {value_error}")
             continue
-
-        if check_coord(coord): # координата выходит за пределы ОДЗ
-            return coord
-
-        print("Число выходит за пределы допустимых выражений!")
 
 
 def check_color(first_x:int, first_y:int, second_x:int, second_y:int) -> bool:
@@ -81,13 +84,17 @@ def get_figure() -> ChessFigure:
     """
 
     while True:
+        logger.log(LogLevel.INFO.value, "Попытка получить тип фигуры")
         try:
             figure = wrap_input("Введите тип фигуры (слон, ферзь, конь, ладья)")
 
             if figure == "королева":
                 figure = "ферзь"
 
-            return ChessFigure(figure)
+            chess = ChessFigure(figure)
+            logger.log(LogLevel.INFO.value, "Попытка успешна")
+            return chess
 
         except ValueError as value_error:
+            logger.log(LogLevel.DEBUG, "Попытка закончилась ошибкой")
             print(f"Типа \"{figure}\" не существует! (Ошибка: {value_error}")
