@@ -2,15 +2,8 @@
 Главный скрипт
 """
 
-from utils import get_pos, check_pos, get_input
+from utils import get_pos, check_pos, wrap_input, check_danger
 from chess_table import ChessTable, ChessFigure
-
-def check_danger(statement: bool) -> None:
-    """
-    обёртка вокруг bool и print
-    """
-
-    print("угрожает" if statement else "не угрожает")
 
 
 def main():
@@ -24,18 +17,12 @@ def main():
     second_y = get_pos("Введите n")
 
     # ввод типа фигуры
-    chess_figure = ChessFigure(get_input("Введите тип фигуры >> "))
+    chess_figure = ChessFigure(wrap_input("Введите тип фигуры >> "))
 
-    # задание а
-    # Выяснить, являются ли поля (k, I) и (m, n) полями одного цвета.
     response = "одного" if check_pos(first_x, first_y, second_x, second_y) else "разного"
-    print("а) Поля", response ,"цвета")
+    print("а) Поля", response ,"цвета") # задание а
 
-    # задание б
-    # На поле (к, I) расположен ферзь, ладья, слон или конь (должен ввести пользователь).
-    # Угрожает ли он полю (m, n)?
-
-    print("б) ", end="")
+    print("б) ", end="") # задание б
     if chess_figure == ChessFigure.BISHOP: # слон
         check_danger(check_pos(first_x, first_y, second_x, second_y))
 
@@ -49,12 +36,7 @@ def main():
         check_danger(first_x == second_x or first_y == second_y or \
             abs(first_x-second_x) == abs(first_y = second_y))
 
-    # задание в
-    # Выяснить, можно ли с поля (k, I) одним ходом ладьи, ферзя или слона (должен ввести
-    # пользователь) попасть на поле (m, n). Если нет, то выяснить, как это можно сделать за два
-    # хода (указать поле, на которое приводит первый ход).
-
-    print("в) ", end="")
+    print("в) ", end="") # задание в
     if chess_figure == ChessFigure.BISHOP: # слон
         if not check_pos(first_x, first_y, second_x, second_y):
             print("Невозможно, т.к. различаются цвета полей")
@@ -63,21 +45,23 @@ def main():
             print("Можно!")
 
         else:
-            pass
+            pass # закончить
 
     elif chess_figure == ChessFigure.CASTLE: # ладья
         if first_x == second_x or first_y == second_y:
             print("Можно!")
 
         else:
-            pass
+            print("Первый ход: {k}:{l}-{m}:{l}; Второй ход {m}:{l}-{m}:{n}".format(
+                k=first_x+1, l=first_y+1,
+                m=second_x+1, n=second_y+1))
 
     elif chess_figure == ChessFigure.KNIGHT: # Конь
         if abs(first_x - second_x) * abs(first_y - second_y) == 2:
             print("Можно!")
 
         else:
-            pass
+            pass # закончить
 
     elif chess_figure == ChessFigure.QUEEN: # ферзь
         if first_x == second_x or first_y == second_y or \
@@ -85,7 +69,9 @@ def main():
             print("Можно!")
 
         else:
-            pass
+            print("Первый ход: {k}:{l}-{m}:{l}; Второй ход {m}:{l}-{m}:{n}".format(
+                k=first_x+1, l=first_y+1,
+                m=second_x+1, n=second_y+1))
 
     # задание со звёздочкой
     chess_table = ChessTable()

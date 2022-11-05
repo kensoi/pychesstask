@@ -4,7 +4,7 @@
 
 from chess_table import COORD_MIN, COORD_MAX
 
-def get_input(text_to_print:str) -> str:
+def wrap_input(text_to_print:str) -> str:
     """
     обёртка вокруг для красивого оформления
     """
@@ -19,7 +19,7 @@ def get_pos(text_to_print:str) -> int:
 
     while True:
         try:
-            coord = int(get_input(text_to_print))
+            coord = int(wrap_input(text_to_print))
 
         except ValueError as value_error: # ошибка перевода в int
             print(f"Введите число! (Ошибка: {value_error}")
@@ -38,3 +38,11 @@ def check_pos(first_x:int, first_y:int, second_x:int, second_y:int) -> bool:
     """
 
     return (first_x + first_y + second_x + second_y) % 2 == 0
+
+
+def check_danger(statement: bool) -> None:
+    """
+    обёртка вокруг bool и print
+    """
+
+    print("угрожает" if statement else "не угрожает")
