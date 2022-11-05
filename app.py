@@ -3,7 +3,7 @@
 """
 
 from utils import get_pos, check_pos, wrap_input, check_danger
-from chess_table import ChessTable, ChessFigure
+from chess import ChessTable, ChessFigure
 
 
 def main():

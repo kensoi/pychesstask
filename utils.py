@@ -2,7 +2,7 @@
 рабочие инструменты
 """
 
-from chess_table import COORD_MIN, COORD_MAX
+from chess import COORD_MIN, COORD_MAX
 
 def wrap_input(text_to_print:str) -> str:
     """
