@@ -5,6 +5,13 @@
 from utils import get_pos, check_pos, get_input
 from chess_table import ChessTable, ChessFigure
 
+def check_danger(statement: bool) -> None:
+    """
+    обёртка вокруг bool и print
+    """
+
+    print("угрожает" if statement else "не угрожает")
+
 
 def main():
     """
@@ -30,16 +37,17 @@ def main():
 
     print("б) ", end="")
     if chess_figure == ChessFigure.BISHOP: # слон
-        pass
+        check_danger(check_pos(first_x, first_y, second_x, second_y))
 
     elif chess_figure == ChessFigure.CASTLE: # ладья
-        pass
+        check_danger(first_x == second_x or first_y == second_y)
 
     elif chess_figure == ChessFigure.KNIGHT: # Конь
-        pass
+        check_danger(abs(first_x - second_x) * abs(first_y - second_y) == 2)
 
     elif chess_figure == ChessFigure.QUEEN: # ферзь
-        pass
+        check_danger(first_x == second_x or first_y == second_y or \
+            abs(first_x-second_x) == abs(first_y = second_y))
 
     # задание в
     # Выяснить, можно ли с поля (k, I) одним ходом ладьи, ферзя или слона (должен ввести
@@ -48,16 +56,36 @@ def main():
 
     print("в) ", end="")
     if chess_figure == ChessFigure.BISHOP: # слон
-        pass
+        if not check_pos(first_x, first_y, second_x, second_y):
+            print("Невозможно, т.к. различаются цвета полей")
+
+        elif abs(first_x - second_x) == abs(first_x - second_y):
+            print("Можно!")
+
+        else:
+            pass
 
     elif chess_figure == ChessFigure.CASTLE: # ладья
-        pass
+        if first_x == second_x or first_y == second_y:
+            print("Можно!")
+
+        else:
+            pass
 
     elif chess_figure == ChessFigure.KNIGHT: # Конь
-        pass
+        if abs(first_x - second_x) * abs(first_y - second_y) == 2:
+            print("Можно!")
+
+        else:
+            pass
 
     elif chess_figure == ChessFigure.QUEEN: # ферзь
-        pass
+        if first_x == second_x or first_y == second_y or \
+            abs(first_x-second_x) == abs(first_y = second_y):
+            print("Можно!")
+
+        else:
+            pass
 
     # задание со звёздочкой
     chess_table = ChessTable()
