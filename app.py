@@ -2,7 +2,7 @@
 Главный скрипт
 """
 
-from utils import get_pos, check_pos, wrap_input
+from utils import get_coord, check_color, wrap_input
 from chess import ChessTable, ChessFigure
 import behaviors
 
@@ -11,15 +11,28 @@ def main():
     Функция с запуском
     """
     # ввод координат
-    first_x = get_pos("Введите k")
-    first_y = get_pos("Введите l")
-    second_x = get_pos("Введите m")
-    second_y = get_pos("Введите n")
+    first_x = get_coord("Введите k")
+    first_y = get_coord("Введите l")
+    second_x = get_coord("Введите m")
+    second_y = get_coord("Введите n")
 
     # ввод типа фигуры
-    chess_figure = ChessFigure(wrap_input("Введите тип фигуры >> "))
+    while True:
+        figure = wrap_input("Введите тип фигуры")
 
-    response = "одного" if check_pos(first_x, first_y, second_x, second_y) else "разного"
+        if figure == "королева":
+            figure = "ферзь"
+
+        try:
+            chess_figure = ChessFigure(figure)
+
+        except ValueError as value_error:
+            print(f"Типа \"{figure}\" не существует! (Ошибка: {value_error}")
+
+        else:
+            break
+
+    response = "одного" if check_color(first_x, first_y, second_x, second_y) else "разного"
     print("а) Поля", response ,"цвета") # задание а
 
     if chess_figure == ChessFigure.BISHOP: # слон

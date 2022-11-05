@@ -1,7 +1,9 @@
 """
 Скрипт с поведениями фигур
 """
-from utils import check_danger, check_pos
+from utils import check_danger, check_color, check_coord, knight_danger, bishop_danger
+from chess import KNIGHTS_MOVES, BISHOP_MOVES
+
 
 def bishop(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     """
@@ -9,17 +11,50 @@ def bishop(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     """
 
     # задание б
-    check_danger(check_pos(first_x, first_y, second_x, second_y))
+    check_danger(check_color(first_x, first_y, second_x, second_y))
 
     # задание в
-    if not check_pos(first_x, first_y, second_x, second_y):
+    if not check_color(first_x, first_y, second_x, second_y):
         print("в) Невозможно, т.к. различаются цвета полей")
 
-    elif abs(first_x - second_x) == abs(first_x - second_y):
+    elif bishop_danger(first_x, first_y, second_x, second_y):
         print("в) Можно в один ход")
 
     else:
-        pass # закончить
+        copied_x = first_x
+        copied_y = first_y
+
+        for move_variation in BISHOP_MOVES:
+            distance = 0
+            distance_loop = False
+
+            while True:
+                first_x = copied_x + move_variation[0] * distance
+                first_y = copied_y + move_variation[1] * distance
+
+                # if first_x > COORD_MAX or first_x < COORD_MIN:
+                if not check_coord(first_x):
+                    break
+
+                if not check_coord(first_y):
+                    break
+
+                if bishop_danger(first_x, first_y, second_x, second_y):
+                    distance_loop = True
+                    print("в) Можно в 2 хода: ")
+                    print(("[1] {init_x}:{init_y}-{sec_x}:{sec_y}\n" + \
+                        "[2] {sec_x}:{sec_y}-{fin_x}:{fin_y}").format(
+                        init_x = copied_x, init_y = copied_y,       # Начальные координаты
+                        sec_x = first_x, sec_y = first_y,     # Координаты после хода коня
+                        fin_x = second_x, fin_y = second_y))        # Конечные координаты
+                    break
+
+                distance += 1
+
+            if distance_loop:
+                break
+
+
 
 def castle(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     """
@@ -40,7 +75,6 @@ def castle(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
             m=second_x+1, n=second_y+1))
 
 
-
 def knight(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     """
     Проверка заданий от лица коня
@@ -50,11 +84,32 @@ def knight(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     check_danger(abs(first_x - second_x) * abs(first_y - second_y) == 2)
 
     # задание в
-    if abs(first_x - second_x) * abs(first_y - second_y) == 2:
+    if knight_danger(first_x, first_y, second_x, second_y):
         print("в) Можно в один ход")
 
     else:
-        pass # закончить
+        # сохраняем значения, чтобы при каждом цикле был одни и те же first_x и first_y
+        copied_x = first_x
+        copied_y = first_y
+
+        for move_variation in KNIGHTS_MOVES:
+            first_x += move_variation[0]
+            first_y += move_variation[1]
+
+            if knight_danger(first_x, first_y, second_x, second_y):
+                print("в) Можно в 2 хода: ")
+                print(("[1] {init_x}:{init_y}-{sec_x}:{sec_y}\n" + \
+                    "[2] {sec_x}:{sec_y}-{fin_x}:{fin_y}").format(
+                    init_x = copied_x, init_y = copied_y,       # Начальные координаты
+                    sec_x = first_x, sec_y = first_y,     # Координаты после хода коня
+                    fin_x = second_x, fin_y = second_y))        # Конечные координаты
+                break
+
+            first_x = copied_x
+            first_y = copied_y
+
+        else:
+            print("в) Невозможно")
 
 
 def queen(first_x: int, first_y: int, second_x: int, second_y: int) -> None:

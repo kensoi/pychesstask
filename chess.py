@@ -4,8 +4,14 @@
 
 from enum import Enum
 
-COORD_MIN = 0
-COORD_MAX = 8
+
+COORD_MIN, COORD_MAX = 1, 9 # Пределы значений; в математическом виде: [1; 8]
+FIELD_NAME_HORIZONTAL = "ABCDEFGH"
+FIELD_NAME_VERTICAL = list(range(COORD_MIN+1, COORD_MAX+1))
+KNIGHTS_MOVES = [(1, 2), (2, 1), (-1, 2), (2, -1),
+    (1, -2), (-2, 1), (-1, -2), (-2, -1)]
+BISHOP_MOVES = [(1, 1), (1, -1), (-1, -1), (-1, 1)]
+
 
 class ChessFigure(Enum):
     """
@@ -50,27 +56,40 @@ class ChessTable:
         """
 
         # вывод первой линии
-        print("+", end="")
+        print("", "+", sep = "\t", end = "")
 
-        for j in range(COORD_MAX):
-            print("---", end="")
-            print("+", end="")
+        for j in range(COORD_MIN, COORD_MAX):
+            print("---", end = "")
+            print("+", end = "")
 
         print()
 
         # вывод построчно всех полей
-        for i in range(COORD_MAX):
-            print("|", end="")
-            for j in range(COORD_MAX):
+        for i in range(COORD_MAX - 1, COORD_MIN - 1, -1): # по вертикали -> y
+            print(i, "|", sep = "\t", end = "")
+
+            for j in range(COORD_MIN, COORD_MAX): # по горизонтали -> x
                 # отмечено ли поле
-                field = "*" if self.check_point(i, COORD_MAX - j) else "_"
-                print(f" {field} |", end="")
+                field = "*" if self.check_point(j, i) else " "
+                print(f" {field} |", end = "")
 
             print() # перенос строки
 
-            print("+", end="")
+            print("", "+", sep = "\t", end = "")
 
-            for j in range(COORD_MAX):
+            for j in range(COORD_MIN, COORD_MAX):
                 print("---+", end="")
 
             print()
+        print()
+        print()
+        print("",
+            " " + "".join(list(map(lambda x: " " + x + "  ", FIELD_NAME_HORIZONTAL))),
+            sep = "\t")
+
+
+if __name__ == "__main__":
+    test = ChessTable()
+    test.match_point(3, 4)
+    test.match_point(5, 6)
+    test.print()

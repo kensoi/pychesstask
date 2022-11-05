@@ -2,7 +2,9 @@
 рабочие инструменты
 """
 
+
 from chess import COORD_MIN, COORD_MAX
+
 
 def wrap_input(text_to_print:str) -> str:
     """
@@ -12,7 +14,15 @@ def wrap_input(text_to_print:str) -> str:
     return input(text_to_print + " >> ").lower()
 
 
-def get_pos(text_to_print:str) -> int:
+def check_coord(coord:int):
+    """
+    проверка координаты на соответствие пределам шахматной доски
+    """
+
+    return coord >= COORD_MIN and coord < COORD_MAX
+
+
+def get_coord(text_to_print:str) -> int:
     """
     Получить значение координаты в допустимых значениях
     """
@@ -25,14 +35,13 @@ def get_pos(text_to_print:str) -> int:
             print(f"Введите число! (Ошибка: {value_error}")
             continue
 
-        if coord < COORD_MIN or coord > COORD_MAX: # координата выходит за пределы ОДЗ
-            print("Число выходит за пределы допустимых выражений!")
-            continue
+        if check_coord(coord): # координата выходит за пределы ОДЗ
+            return coord
 
-        return coord
+        print("Число выходит за пределы допустимых выражений!")
 
 
-def check_pos(first_x:int, first_y:int, second_x:int, second_y:int) -> bool:
+def check_color(first_x:int, first_y:int, second_x:int, second_y:int) -> bool:
     """
     Проверить одного ли цвета клетки (first_x, first_y) и (second_x, second_y)
     """
@@ -45,4 +54,22 @@ def check_danger(statement: bool) -> None:
     обёртка вокруг bool и print
     """
 
-    print("угрожает" if statement else "не угрожает")
+    print("б) угрожает" if statement else "б) не угрожает")
+
+
+def knight_danger(first_x: int, first_y: int,
+        second_x: int, second_y: int) -> bool:
+    """
+    Угрожает ли конь клетке (second_x, second_y) с позиции (first_x, first_y)
+    """
+
+    return abs(first_x - second_x) * abs(first_y - second_y) == 2
+
+
+def bishop_danger(first_x: int, first_y: int,
+        second_x: int, second_y: int) -> bool:
+    """
+    Угрожает ли слон клетке (second_x, second_y) с позиции (first_x, first_y)
+    """
+
+    return abs(first_x - second_x) == abs(first_y - second_y)
