@@ -3,7 +3,7 @@
 Фт-210008
 """
 
-from chess import COORD_MIN, COORD_MAX
+from chess import COORD_MIN, COORD_MAX, ChessFigure
 
 
 def wrap_input(text_to_print:str) -> str:
@@ -73,3 +73,21 @@ def bishop_danger(first_x: int, first_y: int,
     """
 
     return abs(first_x - second_x) == abs(first_y - second_y)
+
+
+def get_figure() -> ChessFigure:
+    """
+    функция получения фигуры
+    """
+
+    while True:
+        try:
+            figure = wrap_input("Введите тип фигуры (слон, ферзь, конь, ладья)")
+
+            if figure == "королева":
+                figure = "ферзь"
+
+            return ChessFigure(figure)
+
+        except ValueError as value_error:
+            print(f"Типа \"{figure}\" не существует! (Ошибка: {value_error}")

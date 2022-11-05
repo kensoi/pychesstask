@@ -3,35 +3,23 @@
 Фт-210008
 """
 
-from utils import get_coord, check_color, wrap_input
+from utils import get_coord, check_color, get_figure
 from chess import ChessTable, ChessFigure
 import behaviors
+
 
 def main():
     """
     Функция с запуском
     """
     # ввод координат
-    first_x = get_coord("Введите k")
-    first_y = get_coord("Введите l")
-    second_x = get_coord("Введите m")
-    second_y = get_coord("Введите n")
+    first_x = get_coord("Введите целое число k в пределах [1; 8]")
+    first_y = get_coord("Введите целое число l в пределах [1; 8]")
+    second_x = get_coord("Введите целое число m в пределах [1; 8]")
+    second_y = get_coord("Введите целое число n в пределах [1; 8]")
 
     # ввод типа фигуры
-    while True:
-        figure = wrap_input("Введите тип фигуры")
-
-        if figure == "королева":
-            figure = "ферзь"
-
-        try:
-            chess_figure = ChessFigure(figure)
-
-        except ValueError as value_error:
-            print(f"Типа \"{figure}\" не существует! (Ошибка: {value_error}")
-
-        else:
-            break
+    chess_figure = get_figure()
 
     response = "одного" if check_color(first_x, first_y, second_x, second_y) else "разного"
     print("а) Поля", response ,"цвета") # задание а

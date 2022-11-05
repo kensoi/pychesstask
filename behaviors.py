@@ -121,11 +121,11 @@ def queen(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
 
     # задание б
     check_danger(first_x == second_x or first_y == second_y or \
-            abs(first_x-second_x) == abs(first_y = second_y))
+            abs(first_x - second_x) == abs(first_y - second_y))
 
     # задание в
     if first_x == second_x or first_y == second_y or \
-        abs(first_x-second_x) == abs(first_y = second_y):
+        abs(first_x - second_x) == abs(first_y - second_y):
         print("в) Можно в один ход")
 
     else:
