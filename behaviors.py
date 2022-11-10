@@ -16,16 +16,17 @@ def bishop(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     # задание б
     logger.log(LogLevel.INFO.value, "Выполнение задания б")
     check_danger(check_color(first_x, first_y, second_x, second_y))
-    logger.log(LogLevel.INFO.value, "Задание б выполнено")
+    logger.log(LogLevel.DEBUG.value, "Задание б выполнено")
 
     # задание в
     logger.log(LogLevel.INFO.value, "Выполнение задания в")
     if not check_color(first_x, first_y, second_x, second_y):
         print("в) Невозможно, т.к. различаются цвета полей")
+        logger.log(LogLevel.DEBUG.value, "Задание невозможно выполнить")
 
     elif bishop_danger(first_x, first_y, second_x, second_y):
         print("в) Можно в один ход")
-        logger.log(LogLevel.INFO.value, "Задание в выполнено в один ход")
+        logger.log(LogLevel.DEBUG.value, "Задание в выполнено в один ход")
 
     else:
         copied_x = first_x
@@ -54,7 +55,7 @@ def bishop(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
                         init_x = copied_x, init_y = copied_y,       # Начальные координаты
                         sec_x = first_x, sec_y = first_y,     # Координаты после хода коня
                         fin_x = second_x, fin_y = second_y))        # Конечные координаты
-                    logger.log(LogLevel.INFO.value, "Задание в выполнено в два хода")
+                    logger.log(LogLevel.DEBUG.value, "Задание в выполнено в два хода")
                     break
 
                 distance += 1
@@ -72,20 +73,20 @@ def castle(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     # задание б
     logger.log(LogLevel.INFO.value, "Выполнение задания б")
     check_danger(first_x == second_x or first_y == second_y)
-    logger.log(LogLevel.INFO.value, "Задание б выполнено")
+    logger.log(LogLevel.DEBUG.value, "Задание б выполнено")
 
     # задание в
     logger.log(LogLevel.INFO.value, "Выполнение задания в")
     if first_x == second_x or first_y == second_y:
         print("в) Можно в один ход")
-        logger.log(LogLevel.INFO.value, "Задание в выполнено в один ход")
+        logger.log(LogLevel.DEBUG.value, "Задание в выполнено в один ход")
 
     else:
         print("в) Можно в 2 хода: ")
         print("[1] {k}:{l}-{m}:{l}\n[2] {m}:{l}-{m}:{n}".format(
             k=first_x, l=first_y,
             m=second_x, n=second_y))
-        logger.log(LogLevel.INFO.value, "Задание в выполнено в два хода")
+        logger.log(LogLevel.DEBUG.value, "Задание в выполнено в два хода")
 
 
 def knight(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
@@ -96,13 +97,13 @@ def knight(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     # задание б
     logger.log(LogLevel.INFO.value, "Выполнение задания б")
     check_danger(abs(first_x - second_x) * abs(first_y - second_y) == 2)
-    logger.log(LogLevel.INFO.value, "Задание б выполнено")
+    logger.log(LogLevel.DEBUG.value, "Задание б выполнено")
 
     # задание в
     logger.log(LogLevel.INFO.value, "Выполнение задания в")
     if knight_danger(first_x, first_y, second_x, second_y):
         print("в) Можно в один ход")
-        logger.log(LogLevel.INFO.value, "Задание в выполнено в один ход")
+        logger.log(LogLevel.DEBUG.value, "Задание в выполнено в один ход")
 
     else:
         # сохраняем значения, чтобы при каждом цикле был одни и те же first_x и first_y
@@ -120,7 +121,7 @@ def knight(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
                     init_x = copied_x, init_y = copied_y,       # Начальные координаты
                     sec_x = first_x, sec_y = first_y,     # Координаты после хода коня
                     fin_x = second_x, fin_y = second_y))        # Конечные координаты
-                logger.log(LogLevel.INFO.value, "Задание в выполнено в два хода")
+                logger.log(LogLevel.DEBUG.value, "Задание в выполнено в два хода")
                 break
 
             first_x = copied_x
@@ -139,18 +140,18 @@ def queen(first_x: int, first_y: int, second_x: int, second_y: int) -> None:
     logger.log(LogLevel.INFO.value, "Выполнение задания б")
     check_danger(first_x == second_x or first_y == second_y or \
             abs(first_x - second_x) == abs(first_y - second_y))
-    logger.log(LogLevel.INFO.value, "Задание б выполнено")
+    logger.log(LogLevel.DEBUG.value, "Задание б выполнено")
 
     # задание в
     logger.log(LogLevel.INFO.value, "Выполнение задания в")
     if first_x == second_x or first_y == second_y or \
         abs(first_x - second_x) == abs(first_y - second_y):
         print("в) Можно в один ход")
-        logger.log(LogLevel.INFO.value, "Задание в выполнено в один ход")
+        logger.log(LogLevel.DEBUG.value, "Задание в выполнено в один ход")
 
     else:
         print("в) Можно в 2 хода: ")
         print("[1] {k}:{l}-{m}:{l}\n[2] {m}:{l}-{m}:{n}".format(
             k=first_x, l=first_y,
             m=second_x, n=second_y))
-        logger.log(LogLevel.INFO.value, "Задание в выполнено в два хода")
+        logger.log(LogLevel.DEBUG.value, "Задание в выполнено в два хода")

@@ -19,7 +19,7 @@ def main():
     first_y = get_coord("Введите целое число l в пределах [1; 8]")
     second_x = get_coord("Введите целое число m в пределах [1; 8]")
     second_y = get_coord("Введите целое число n в пределах [1; 8]")
-    logger.log(LogLevel.INFO.value, "Ввод координат без ошибок")
+    logger.log(LogLevel.DEBUG.value, "Ввод координат без ошибок")
 
     # ввод типа фигуры
     chess_figure = get_figure()
@@ -28,7 +28,7 @@ def main():
     logger.log(LogLevel.INFO.value, "Выполнение задания а")
     response = "одного" if check_color(first_x, first_y, second_x, second_y) else "разного"
     print("а) Поля", response ,"цвета") # задание а
-    logger.log(LogLevel.INFO.value, "Задание выполнено без ошибок")
+    logger.log(LogLevel.DEBUG.value, "Задание выполнено без ошибок")
 
     if chess_figure == ChessFigure.BISHOP: # слон
         behaviors.bishop(first_x, first_y, second_x, second_y)

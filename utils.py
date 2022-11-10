@@ -29,12 +29,12 @@ def get_coord(text_to_print:str) -> int:
     """
 
     while True:
-        logger.log(LogLevel.INFO.value, "Попытка взять координату")
+        logger.log(LogLevel.DEBUG.value, "Попытка взять координату")
 
         try:
             coord = int(wrap_input(text_to_print))
             if check_coord(coord): # координата выходит за пределы ОДЗ
-                logger.log(LogLevel.INFO.value, "Попытка успешна")
+                logger.log(LogLevel.DEBUG.value, "Попытка успешна")
                 return coord
             print("Число выходит за пределы допустимых выражений!")
 
